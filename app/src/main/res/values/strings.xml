@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ChatAppAndroidClient</string>
+    <string name="login_etUsername">Useraname</string>
+    <string name="login_etPassword">Password</string>
+    <string name="login_btnLog_in">Log in</string>
+    <string name="logo">logo</string>
+    <string name="logisimo">logisimo</string>
+    <string name="chatapp">ChatApp</string>
+    <string name="register">Register</string>
+</resources>
