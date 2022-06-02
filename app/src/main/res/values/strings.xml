@@ -7,4 +7,10 @@
     <string name="logisimo">logisimo</string>
     <string name="chatapp">ChatApp</string>
     <string name="register">Register</string>
+    <string name="to_register">To Register</string>
+    <string name="not_registered">Not registered?</string>
+    <string name="to_login">To Login</string>
+    <string name="already_registered">already registered?</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="nickname">Nickname</string>
 </resources>
