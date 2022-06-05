@@ -1,32 +1,80 @@
 package com.example.chatappandroidclient;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
-import java.util.ArrayList;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
+
+import adapters.ContactListAdapter;
 
 public class Contacts extends AppCompatActivity {
 
-    List<String> tempContacts = new ArrayList<String>();
+
+    private ChatAppDB db;
+    private ContactDao contactsDao;
+
+    private List<Contact> contacts;
+    RecyclerView Contacts;
+    private ContactListAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        tempContacts.add("Corali");
-        tempContacts.add("Itamarmar");
-        tempContacts.add("Amitush");
+        db = Room.databaseBuilder(getApplicationContext(), ChatAppDB.class, "ChatsDB")
+                .allowMainThreadQueries()
+                .build();
 
-        ListView Contacts = findViewById(R.id.Contacts);
+        contactsDao = db.contactsDao();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tempContacts);
+        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AddContact.class);
+            startActivity(intent);
+        });
 
+        contacts = contactsDao.getContacts();
+
+//        for (int i=0;i<contacts.size()-1;i++) {
+//            Contact contact = contacts.remove(i);
+//            contactsDao.delete(contact);
+//        }
+
+        Contacts = findViewById(R.id.Contacts);
+
+        adapter = new ContactListAdapter(this);
         Contacts.setAdapter(adapter);
+        Contacts.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setContacts(contacts);
 
+//        Contacts.setOnItemLongClickListener((adapterView, view, i, l) -> {
+//            Contact contact = contacts.remove(i);
+//            contactsDao.delete(contact);
+//            adapter.notifyDataSetChanged();
+//            return true;
+//         });
+
+//        Contacts.setOnItemClickListener((adapterView, view, i, l) -> {
+//            Intent intent = new Intent(this, MessagesList.class);
+//            intent.putExtra("contact_username", contacts.get(i).getUsername());
+//            startActivity(intent);
+//        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        contacts.clear();
+        contacts.addAll(contactsDao.getContacts());
+        adapter.notifyDataSetChanged();
     }
 }
