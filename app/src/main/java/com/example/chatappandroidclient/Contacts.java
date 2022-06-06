@@ -1,7 +1,9 @@
 package com.example.chatappandroidclient;
 
 import android.content.Intent;
+import android.content.MutableContextWrapper;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +16,7 @@ import java.util.List;
 
 import adapters.ContactListAdapter;
 
-public class Contacts extends AppCompatActivity {
+public class Contacts extends AppCompatActivity implements SelectListener {
 
 
     private ChatAppDB db;
@@ -51,7 +53,7 @@ public class Contacts extends AppCompatActivity {
 
         Contacts = findViewById(R.id.Contacts);
 
-        adapter = new ContactListAdapter(this);
+        adapter = new ContactListAdapter(this, this);
         Contacts.setAdapter(adapter);
         Contacts.setLayoutManager(new LinearLayoutManager(this));
         adapter.setContacts(contacts);
@@ -76,5 +78,12 @@ public class Contacts extends AppCompatActivity {
         contacts.clear();
         contacts.addAll(contactsDao.getContacts());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(Contact contact) {
+        Intent intent = new Intent(this, MessagesList.class);
+        intent.putExtra("contact_username", contact.getUsername());
+        startActivity(intent);
     }
 }

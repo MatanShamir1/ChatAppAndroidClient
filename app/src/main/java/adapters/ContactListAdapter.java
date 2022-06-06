@@ -1,5 +1,6 @@
 package adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,30 +9,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatappandroidclient.Contact;
 import com.example.chatappandroidclient.R;
+import com.example.chatappandroidclient.SelectListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder>{
 
-    public ContactListAdapter(Context context) {this.mInflater = LayoutInflater.from(context);}
+    public ContactListAdapter(Context context , SelectListener listener ) {this.mInflater = LayoutInflater.from(context);
+    this.listener = listener;
+    }
 
     class ContactViewHolder extends RecyclerView.ViewHolder {
+        private final CardView cardView;
         private final TextView contact_username;
         private final TextView last_message;
         private final ImageView contact_image;
-
-        private ContactViewHolder(@NonNull View itemView) {
+        private ContactViewHolder(@NonNull View itemView ) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.card_gchat_message_other);
             contact_username = itemView.findViewById(R.id.contact_username);
             last_message = itemView.findViewById(R.id.last_message);
             contact_image = itemView.findViewById(R.id.contact_image);
         }
     }
-
+    private SelectListener listener;
     private final LayoutInflater mInflater;
     private List<Contact> contacts;
     @NonNull
@@ -42,12 +49,18 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContactListAdapter.ContactViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ContactListAdapter.ContactViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if(contacts != null){
             final Contact current = contacts.get(position);
             holder.last_message.setText(current.getLastMessage());
             holder.contact_username.setText(current.getName());
-            //holder.profile_pic.setImageResource(current.getImage());
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(contacts.get(position));
+                }
+            });
+            // holder.profile_pic.setImageResource(current.getImage());
         }
     }
 

@@ -6,10 +6,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import adapters.MessageListAdapter;
 
 public class MessagesList extends AppCompatActivity {
 
@@ -18,7 +23,7 @@ public class MessagesList extends AppCompatActivity {
     private MessageDao messagesDao;
     private String contact_username;
     private List<Message> messages;
-    private ListView Messages;
+    private RecyclerView Messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +40,21 @@ public class MessagesList extends AppCompatActivity {
             startActivity(intent);
         });
 
-        messagesDao = db.messagesDao();
+//        messagesDao = db.messagesDao();
 
-        messages = messagesDao.getMessages(contact_username);
+//        messages = messagesDao.getMessages(contact_username);
 
         Messages = findViewById(R.id.messages_list);
-
-        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
-
+        final MessageListAdapter adapter = new MessageListAdapter(this);
         Messages.setAdapter(adapter);
+        Messages.setLayoutManager(new LinearLayoutManager(this));
+        List<Message> messageList = new ArrayList<Message>();
+        messageList.add(new Message(0 , "Hello" , "Itamar",true , "12"));
+        messageList.add(new Message(1 , "Hello2" , "Itamar",true , "12"));
+        messageList.add(new Message(2 , "Hello3" , "Itamar",true , "12"));
+        adapter.setMessageList(messageList);
+//        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
+
+
     }
 }
