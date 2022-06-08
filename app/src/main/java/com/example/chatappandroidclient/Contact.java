@@ -9,18 +9,51 @@ public class Contact {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    private String username;
+    private String userName;
     private String name;
     private String server;
-    private String lastMessage;
-    private String time;
+    private String last;
+    private String lastDate;
 
-    public Contact(String name, String server, String lastMessage, String time, @NonNull String username) {
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
+
+    @NonNull
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(@NonNull String userName) {
+        this.userName = userName;
+    }
+
+    public String getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(String lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    public Contact(String name, String server, String last, String lastDate, @NonNull String userName) {
         this.name = name;
         this.server = server;
-        this.lastMessage = lastMessage;
-        this.time = time;
-        this.username = username;
+        this.last = last;
+        this.lastDate = lastDate;
+        this.userName = userName;
+    }
+
+    public String getLastdate() {
+        return lastDate;
+    }
+
+    public void setLastdate(String lastdate) {
+        this.lastDate = lastdate;
     }
 
     public String getName() {
@@ -31,16 +64,10 @@ public class Contact {
         return server;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
-    }
 
-    public String getTime() {
-        return time;
-    }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setName(String name) {
@@ -51,16 +78,10 @@ public class Contact {
         this.server = server;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
-    }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
 }

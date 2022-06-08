@@ -28,6 +28,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     class ContactViewHolder extends RecyclerView.ViewHolder {
         private final CardView cardView;
         private final TextView contact_username;
+        private final  TextView time;
         private final TextView last_message;
         private final ImageView contact_image;
         private ContactViewHolder(@NonNull View itemView ) {
@@ -36,6 +37,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             contact_username = itemView.findViewById(R.id.contact_username);
             last_message = itemView.findViewById(R.id.last_message);
             contact_image = itemView.findViewById(R.id.contact_image);
+            time = itemView.findViewById(R.id.last_message_date);
         }
     }
     private SelectListener listener;
@@ -52,8 +54,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public void onBindViewHolder(@NonNull ContactListAdapter.ContactViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if(contacts != null){
             final Contact current = contacts.get(position);
-            holder.last_message.setText(current.getLastMessage());
+            holder.last_message.setText(current.getLast());
             holder.contact_username.setText(current.getName());
+            holder.time.setText(current.getLastDate());
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

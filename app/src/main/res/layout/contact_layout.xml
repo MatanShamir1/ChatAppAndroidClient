@@ -13,20 +13,7 @@
         app:cardBackgroundColor="#eef1f6"
         tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/last_message_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:paddingStart="8dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="4dp"
-        android:text="June 10"
-        android:textColor="#C0C0C0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/contact_image"
@@ -37,23 +24,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_gchat_date_other" />
 
-    <TextView
-        android:id="@+id/contact_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="John Grady Cole"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/contact_image"
-        app:layout_constraintTop_toBottomOf="@+id/text_gchat_date_other" />
 
-        <TextView
-            android:id="@+id/last_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Rooney!"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/contact_name" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:id="@+id/contact_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Rooney!"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/contact_name" />
+
+                <TextView
+                    android:id="@+id/last_message_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
+                    android:text="June 10"
+                    android:textColor="#C0C0C0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/last_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:text="John Grady Cole"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

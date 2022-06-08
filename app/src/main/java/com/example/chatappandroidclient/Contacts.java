@@ -31,7 +31,7 @@ public class Contacts extends AppCompatActivity implements SelectListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
+        String Session = getIntent().getExtras().getString("1");
         db = Room.databaseBuilder(getApplicationContext(), ChatAppDB.class, "ChatsDB")
                 .allowMainThreadQueries()
                 .build();
@@ -44,6 +44,8 @@ public class Contacts extends AppCompatActivity implements SelectListener {
             startActivity(intent);
         });
 
+        ApiContact apiContact = new ApiContact();
+        apiContact.get_all_contacts(this ,Session);
         contacts = contactsDao.getContacts();
 
 //        for (int i=0;i<contacts.size()-1;i++) {
@@ -71,7 +73,14 @@ public class Contacts extends AppCompatActivity implements SelectListener {
 //            startActivity(intent);
 //        });
     }
-
+    public void fill_contacts(List<Contact> contacts1){
+        this.contacts = contacts1;
+        Contacts = findViewById(R.id.Contacts);
+        adapter = new ContactListAdapter(this, this);
+        Contacts.setAdapter(adapter);
+        Contacts.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setContacts(contacts);
+    }
     @Override
     protected void onResume() {
         super.onResume();
