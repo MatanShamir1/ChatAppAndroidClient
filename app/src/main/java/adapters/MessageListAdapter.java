@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chatappandroidclient.Contact;
 import com.example.chatappandroidclient.Message;
 import com.example.chatappandroidclient.R;
 
@@ -24,31 +23,38 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         minflater = LayoutInflater.from(context);
     }
 
-    class MessageViewHolder extends RecyclerView.ViewHolder {
+    abstract class MessageViewHolder extends RecyclerView.ViewHolder{
+
+        public MessageViewHolder(@NonNull View viewItem) {
+            super(viewItem);
+        }
+    }
+
+    class MessageSendViewHolder extends MessageViewHolder {
         private TextView date;
         private TextView time;
         private TextView content;
-
         // need to add image and check if need to create layout for both receive and send.
-        private MessageViewHolder(View viewItem) {
+        public MessageSendViewHolder(View viewItem) {
+            super(viewItem);
+            //notice the "me" and the "other"! these are different view components!!!
+            date = viewItem.findViewById(R.id.text_gchat_date_other);
+            time = viewItem.findViewById(R.id.text_gchat_timestamp_other);
+            content = viewItem.findViewById(R.id.text_gchat_message_other);
+        }
+    }
+
+    class MessageReceiveViewHolder extends MessageViewHolder {
+        private TextView date;
+        private TextView time;
+        private TextView content;
+        // need to add image and check if need to create layout for both receive and send.
+        public MessageReceiveViewHolder(View viewItem, String type) {
             super(viewItem);
             date = viewItem.findViewById(R.id.text_gchat_date_me);
             time = viewItem.findViewById(R.id.text_gchat_timestamp_me);
             content = viewItem.findViewById(R.id.text_gchat_message_me);
         }
-    }
-
-    @NonNull
-    @Override
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View ItemView;
-        if(viewType == 0) {
-             ItemView = minflater.inflate(R.layout.message_receive_layout, parent, false);
-        }
-        else {
-            ItemView = minflater.inflate(R.layout.message_send_layout, parent, false);
-        }
-        return new MessageViewHolder(ItemView);
     }
 
     @Override
@@ -59,12 +65,32 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         return 0;
     }
 
+    @NonNull
+    @Override
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View ItemView;
+        if(viewType == 0) {
+            ItemView = minflater.inflate(R.layout.message_receive_layout, parent, false);
+            return new MessageReceiveViewHolder(ItemView,"receive");
+        }
+        else {
+            ItemView = minflater.inflate(R.layout.message_send_layout, parent, false);
+            return new MessageSendViewHolder(ItemView);
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         if (messageList != null) {
             Message message = messageList.get(position);
-            holder.content.setText(message.getContent());
-            holder.date.setText(message.getCreated());
+            if(holder instanceof MessageSendViewHolder){
+                ((MessageSendViewHolder)holder).content.setText(message.getContent());
+                ((MessageSendViewHolder)holder).date.setText(message.getCreated());
+            } else {
+                ((MessageReceiveViewHolder)holder).content.setText(message.getContent());
+                ((MessageReceiveViewHolder)holder).date.setText(message.getCreated());
+            }
+
         }
     }
 

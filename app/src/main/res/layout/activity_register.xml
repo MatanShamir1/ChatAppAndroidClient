@@ -132,7 +132,7 @@
             android:textColor="@color/red"
             android:gravity="center"
             android:padding="5dp"
-            android:text="password or nickname are incorrect"
+            android:text="@string/password_or_nickname_are_incorrect"
             android:textAlignment="center"
             android:visibility="invisible" />
         <TextView

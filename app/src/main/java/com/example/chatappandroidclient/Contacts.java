@@ -1,18 +1,13 @@
 package com.example.chatappandroidclient;
 
 import android.content.Intent;
-import android.content.MutableContextWrapper;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import adapters.ContactListAdapter;
 
@@ -31,8 +26,10 @@ public class Contacts extends AppCompatActivity implements SelectListener {
         setContentView(R.layout.activity_chat);
         contactviewModel = new ContactviewModel(getIntent().getExtras().getString("1"));
         FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
+        this.session = getIntent().getExtras().getString("1");
         btnAdd.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddContact.class);
+            intent.putExtra("1",this.session);
             startActivity(intent);
         });
 
@@ -42,7 +39,6 @@ public class Contacts extends AppCompatActivity implements SelectListener {
 //            Contact contact = contacts.remove(i);
 //            contactsDao.delete(contact);
 //        }
-        this.session = getIntent().getExtras().getString("1");
         Contacts = findViewById(R.id.Contacts);
         adapter = new ContactListAdapter(this, this);
         Contacts.setAdapter(adapter);
@@ -52,7 +48,6 @@ public class Contacts extends AppCompatActivity implements SelectListener {
                     adapter.setContacts(contacts);
                 }
         );
-
     }
 
 

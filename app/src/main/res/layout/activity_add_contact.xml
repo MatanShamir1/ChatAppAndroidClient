@@ -40,6 +40,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/add_contact" />
+        <TextView
+            android:id="@+id/error_add_contact"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/there_is_no_such_contact_mate"
+            android:textAlignment="center"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout

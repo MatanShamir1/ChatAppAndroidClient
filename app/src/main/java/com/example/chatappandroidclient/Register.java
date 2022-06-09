@@ -1,9 +1,6 @@
 package com.example.chatappandroidclient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
@@ -57,8 +54,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void response() {
-        Intent i = new Intent(this, Login.class); // this has information of where i am and where do i want to act on.
-        startActivity(i);
+//        Intent i = new Intent(this, Login.class); // this has information of where i am and where do i want to act on.
+//        startActivity(i);
+        this.finish();
     }
 
     public boolean check_input(String userName, String password, String password2, String Nickname) {

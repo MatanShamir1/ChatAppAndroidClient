@@ -21,14 +21,18 @@ public class ApiContact {
     WebserviceHomePage webServiceAPI;
 
     public ApiContact() {
-//        // MutableLiveData<List<Contact>> postListData, ContactDao dao
-//        this.postListData = postListData;
-//        this.dao = dao;
         retrofit = new Retrofit.Builder().
                 baseUrl(MyApplication.context.getString(R.string.BaseUrl)).
                 addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebserviceHomePage.class);
     }
+
+    public ApiContact(String url) {
+        retrofit = new Retrofit.Builder().
+                baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        webServiceAPI = retrofit.create(WebserviceHomePage.class);
+    }
+
     public void Post_Login(User user , Login log) {
         Call<Void> call = webServiceAPI.checkLogin(user);
         call.enqueue(new Callback<Void>() {
@@ -43,6 +47,7 @@ public class ApiContact {
             }
         });
     }
+
     public void Post_Register(User user , Register register) {
         Call<Void> call = webServiceAPI.createUser(user);
         call.enqueue(new Callback<Void>() {
@@ -57,7 +62,38 @@ public class ApiContact {
             }
         });
     }
-    public void get_messages(MessageRepo.MessageList repo ,  String session , String id){
+
+    public void Post_Add_Contact(Contact newContact, String session, AddContact addContact) {
+        Call<Void> call = webServiceAPI.addContact(session, newContact);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                addContact.connection();
+            }
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                addContact.response(response.code());
+            }
+        });
+    }
+
+    public void Post_Invitation(Contact newContact, String session, AddContact addContact) {
+        Call<Void> call = webServiceAPI.addContact(session, newContact);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                addContact.connection();
+            }
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                addContact.response(response.code());
+            }
+        });
+    }
+
+    public void get_messages(MessageRepo.MessageList repo, String session, String id){
         Call<List<Message>> call = webServiceAPI.getMessages(session ,id);
         call.enqueue(new Callback<List<Message>>() {
             @Override

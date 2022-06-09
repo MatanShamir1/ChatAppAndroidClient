@@ -51,9 +51,8 @@ public class MessageRepo {
 
         public void fill_messages(List<Message> body) {
             setValue(body);
-            List<Message> copy = dao.getMessages(idCurr);
             for (Message c : body) {
-                if (!copy.contains(c)) {
+                if (dao.getMessageById(c.id)==null) {
                     c.setContactUsername(idCurr);
                     dao.insert(c);
                 } else {

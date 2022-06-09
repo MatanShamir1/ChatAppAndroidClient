@@ -1,45 +1,46 @@
 package com.example.chatappandroidclient;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 public class AddContact extends AppCompatActivity {
-    private ChatAppDB db;
-    private ContactDao contactsDao;
-    private MessageDao messagesDao;
+    private ApiContact apiContactMyServer;
+    private ApiContact apiContactOtherServer;
+    private String session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        apiContactMyServer = new ApiContact();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-
-        db = Room.databaseBuilder(getApplicationContext(), ChatAppDB.class, "ChatsDB")
-                .allowMainThreadQueries()
-                .build();
-
-        contactsDao = db.contactsDao();
-
-        messagesDao = db.messagesDao();
+        this.session = getIntent().getExtras().getString("1");
         Button btnAddHim = findViewById(R.id.btnAddHim);
         btnAddHim.setOnClickListener(view -> {
             EditText contact_username = findViewById(R.id.contact_username_text);
             EditText server_address = findViewById(R.id.server_address_text);
             Contact newContact = new Contact(contact_username.getText().toString(),
-                    server_address.getText().toString(), "", "",
+                    server_address.getText().toString(), null, null,
                     contact_username.getText().toString());
-            contactsDao.insert(newContact);
-            finish();
+//            apiContactOtherServer = new ApiContact("http://" + newContact.getServer() + "/api/");
+//            apiContactOtherServer.
+            apiContactMyServer.Post_Add_Contact(newContact,session, this);
         });
     }
 
+    public void connection() {
+        TextView errorView = findViewById(R.id.error_add_contact);
+        errorView.setVisibility(View.VISIBLE);
+    }
 
+    public void response(int code) {
+        if(code == 201){
+            this.finish();
+        } else{
+            this.connection();
+        }
+    }
 }

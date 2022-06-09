@@ -5,11 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import android.app.Application;
-import android.content.Context;
 
 public class ContactsRepo {
     private ApiContact apiContact;
@@ -52,7 +48,9 @@ public class ContactsRepo {
         }
 
         public void fill_contacts(List<Contact> body) {
+            //make the UI change
            setValue(body);
+           //Update the local DB
            for (Contact c : body){
                if(contactsDao.getContactById(c.getId()) == null){
                    contactsDao.insert(c);
