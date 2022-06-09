@@ -53,22 +53,34 @@ public class ApiContact {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                System.out.println(response);
                 register.response();
             }
         });
     }
-    public void get_all_contacts( Contacts contacts , String Session){
+    public void get_messages(MessageRepo.MessageList repo ,  String session , String id){
+        Call<List<Message>> call = webServiceAPI.getMessages(session ,id);
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+            }
+
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                repo.fill_messages(response.body());
+            }
+        });
+
+    }
+    public void get_all_contacts(ContactsRepo.ContactsList repo , String Session){
         Call<List<Contact>> call = webServiceAPI.getContact(Session);
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {
-
             }
 
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                contacts.fill_contacts(response.body());
+                repo.fill_contacts(response.body());
             }
         });
     }

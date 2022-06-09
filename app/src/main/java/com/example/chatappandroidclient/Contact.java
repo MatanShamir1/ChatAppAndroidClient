@@ -9,11 +9,20 @@ public class Contact {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    private String userName;
+    private String id;
     private String name;
     private String server;
     private String last;
     private String lastDate;
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
 
     public String getLast() {
         return last;
@@ -25,11 +34,11 @@ public class Contact {
 
     @NonNull
     public String getUserName() {
-        return userName;
+        return id;
     }
 
     public void setUserName(@NonNull String userName) {
-        this.userName = userName;
+        this.id = userName;
     }
 
     public String getLastDate() {
@@ -40,12 +49,12 @@ public class Contact {
         this.lastDate = lastDate;
     }
 
-    public Contact(String name, String server, String last, String lastDate, @NonNull String userName) {
+    public Contact(String name, String server, String last, String lastDate, @NonNull String id) {
         this.name = name;
         this.server = server;
         this.last = last;
         this.lastDate = lastDate;
-        this.userName = userName;
+        this.id = id;
     }
 
     public String getLastdate() {
@@ -67,7 +76,7 @@ public class Contact {
 
 
     public String getUsername() {
-        return userName;
+        return id;
     }
 
     public void setName(String name) {
@@ -81,7 +90,7 @@ public class Contact {
 
 
     public void setUsername(String username) {
-        this.userName = username;
+        this.id = username;
     }
 
 }

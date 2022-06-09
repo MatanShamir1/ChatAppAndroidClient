@@ -26,5 +26,8 @@ public interface WebserviceHomePage {
     @POST("users/login")
     Call<Void> checkLogin(@Body User user);
 
+    @GET("contacts/{id}/messages")
+    Call<List<Message>> getMessages(@Header ("Cookie") String session ,@Path("id")String id);
+
 
 }

@@ -41,8 +41,22 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View ItemView = minflater.inflate(R.layout.message_receive_layout, parent, false);
+        View ItemView;
+        if(viewType == 0) {
+             ItemView = minflater.inflate(R.layout.message_receive_layout, parent, false);
+        }
+        else {
+            ItemView = minflater.inflate(R.layout.message_send_layout, parent, false);
+        }
         return new MessageViewHolder(ItemView);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(messageList.get(position).isSent()){
+            return 1;
+        }
+        return 0;
     }
 
     @Override
@@ -50,8 +64,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         if (messageList != null) {
             Message message = messageList.get(position);
             holder.content.setText(message.getContent());
-//            holder.date.setText("10 June");
-            holder.time.setText(message.getTime());
+            holder.date.setText(message.getCreated());
         }
     }
 

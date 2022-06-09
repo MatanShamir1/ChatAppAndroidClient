@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Login extends AppCompatActivity {
 
@@ -17,9 +17,9 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //create a firebase connection to the server, to be able to get realtime notifications.
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
-            String newToken = instanceIdResult.getToken(); // this is the id of our app in the eyes of our firebase instance.
-        });
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
+//            String newToken = instanceIdResult.getToken(); // this is the id of our app in the eyes of our firebase instance.
+//        });
 
         Button btnToRegister = findViewById(R.id.btnToRegister);
         btnToRegister.setOnClickListener(v -> {

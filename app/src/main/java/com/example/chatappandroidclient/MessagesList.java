@@ -29,8 +29,7 @@ public class MessagesList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_list);
-
-        if(getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             contact_username = getIntent().getExtras().getString("contact_username");
         }
 
@@ -43,16 +42,15 @@ public class MessagesList extends AppCompatActivity {
 //        messagesDao = db.messagesDao();
 
 //        messages = messagesDao.getMessages(contact_username);
-
+        MessageViewModel viewModel = new MessageViewModel(getIntent().getExtras().getString("1"), contact_username);
         Messages = findViewById(R.id.messages_list);
         final MessageListAdapter adapter = new MessageListAdapter(this);
         Messages.setAdapter(adapter);
         Messages.setLayoutManager(new LinearLayoutManager(this));
-        List<Message> messageList = new ArrayList<Message>();
-        messageList.add(new Message(0 , "Hello" , "Itamar",true , "12"));
-        messageList.add(new Message(1 , "Hello2" , "Itamar",true , "12"));
-        messageList.add(new Message(2 , "Hello3" , "Itamar",true , "12"));
-        adapter.setMessageList(messageList);
+        viewModel.getMessages().observe(this , messages -> {
+            adapter.setMessageList(messages);
+        });
+
 //        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
 
 

@@ -6,19 +6,27 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Message {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     int id;
     private String content;
     private String contactUsername;
     private boolean sent;
-    private String time;
+    private String created;
 
-    public Message(int id, String content, String contactUsername, boolean sent, String time) {
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public Message(int id, String content, String contactUsername, boolean sent, String created) {
         this.id = id;
         this.content = content;
         this.contactUsername = contactUsername;
         this.sent = sent;
-        this.time = time;
+        this.created = created;
     }
 
     public String getContactUsername() {
@@ -62,10 +70,10 @@ public class Message {
     }
 
     public String getTime() {
-        return time;
+        return created;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.created = time;
     }
 }
