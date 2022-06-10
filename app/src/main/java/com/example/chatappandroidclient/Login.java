@@ -7,20 +7,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 //import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Login extends AppCompatActivity {
-
     private String username;
+    ApiContact apiContact ;
+    String session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        apiContact = new ApiContact();
 
         //create a firebase connection to the server, to be able to get realtime notifications.
-//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
-//            String newToken = instanceIdResult.getToken(); // this is the id of our app in the eyes of our firebase instance.
-//        });
+
 
         Button btnToRegister = findViewById(R.id.btnToRegister);
         btnToRegister.setOnClickListener(v -> {
@@ -39,6 +41,14 @@ public class Login extends AppCompatActivity {
         });
     }
     public void response(String session){
+        this.session = session;
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken(); // this is the id of our app in the eyes of our firebase instance.
+            apiContact.sendToken(session ,newToken , this);
+        });
+
+    }
+    public void startContacts(){
         Intent i = new Intent(this, Contacts.class);
         i.putExtra("1", session);
         i.putExtra("myName",username);

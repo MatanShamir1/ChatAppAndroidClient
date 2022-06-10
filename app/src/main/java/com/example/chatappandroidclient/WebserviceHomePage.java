@@ -23,11 +23,12 @@ public interface WebserviceHomePage {
     @POST("contacts")
     Call<Void> addContact(@Header ("Cookie") String session ,@Body Contact newContact);
 
-    @POST("contacts")
+    @POST("invitations")
     Call<Void> invitation(@Body Invitation invitation);
 
     @GET("contacts/{id}/messages")
     Call<List<Message>> getMessages(@Header ("Cookie") String session ,@Path("id")String id);
 
-
+    @POST("users/addToken")
+    Call<Void> SendToken(@Header ("Cookie") String session , @Body Token token);
 }
