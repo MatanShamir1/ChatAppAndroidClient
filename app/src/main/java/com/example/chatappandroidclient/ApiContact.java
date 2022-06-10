@@ -78,17 +78,17 @@ public class ApiContact {
         });
     }
 
-    public void Post_Invitation(Contact newContact, String session, AddContact addContact) {
-        Call<Void> call = webServiceAPI.addContact(session, newContact);
+    public void Post_Invitation(String from, String to, AddContact addContact) {
+        Call<Void> call = webServiceAPI.invitation(new Invitation(from,to,MyApplication.context.getString(R.string.BaseUrl)));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                addContact.connection();
+                addContact.connectionInvitation();
             }
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                addContact.response(response.code());
+                addContact.responseInvitation(response.code());
             }
         });
     }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Login extends AppCompatActivity {
 
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class Login extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v -> {
             TextView Username = findViewById(R.id.text_username);
-            String username = Username.getText().toString();
+            username = Username.getText().toString();
             TextView Password = findViewById(R.id.text_password);
             String password = Password.getText().toString();
             User user = new User(username , password);
@@ -40,6 +41,7 @@ public class Login extends AppCompatActivity {
     public void response(String session){
         Intent i = new Intent(this, Contacts.class);
         i.putExtra("1", session);
+        i.putExtra("myName",username);
         startActivity(i);
     }
     @Override

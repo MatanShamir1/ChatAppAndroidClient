@@ -15,9 +15,9 @@ public class Contacts extends AppCompatActivity implements SelectListener {
 
     private String session;
     private ContactviewModel contactviewModel;
-//    private List<Contact> contacts;
     RecyclerView Contacts;
     private ContactListAdapter adapter;
+    private String myName;
 
 
     @Override
@@ -27,9 +27,12 @@ public class Contacts extends AppCompatActivity implements SelectListener {
         contactviewModel = new ContactviewModel(getIntent().getExtras().getString("1"));
         FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
         this.session = getIntent().getExtras().getString("1");
+        //get the logged in user's username, for add contact activity.
+        this.myName = getIntent().getExtras().getString("myName");
         btnAdd.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddContact.class);
             intent.putExtra("1",this.session);
+            intent.putExtra("myName",this.myName);
             startActivity(intent);
         });
 

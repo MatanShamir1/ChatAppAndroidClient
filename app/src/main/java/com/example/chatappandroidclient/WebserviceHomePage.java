@@ -14,9 +14,6 @@ public interface WebserviceHomePage {
     @GET("contacts")
     Call<List<Contact>> getContact(@Header ("Cookie") String session);
 
-    @POST("contacts")
-    Call<Void> createContact(@Body Contact contact);
-
     @POST("users/register")
     Call<Void> createUser(@Body User user);
 
@@ -25,6 +22,9 @@ public interface WebserviceHomePage {
 
     @POST("contacts")
     Call<Void> addContact(@Header ("Cookie") String session ,@Body Contact newContact);
+
+    @POST("contacts")
+    Call<Void> invitation(@Body Invitation invitation);
 
     @GET("contacts/{id}/messages")
     Call<List<Message>> getMessages(@Header ("Cookie") String session ,@Path("id")String id);
