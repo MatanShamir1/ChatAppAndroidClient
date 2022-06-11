@@ -138,4 +138,37 @@ public class ApiContact {
             }
         });
     }
+
+    public void postTransfer(String myName, String contact_username, String content, MessageRepo messageRepo) {
+        Transfer transfer = new Transfer(myName, contact_username, content);
+        Call<Void> call = webServiceAPI.transfer(transfer);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                messageRepo.connectionTransfer();
+            }
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                messageRepo.responseTransfer(content, contact_username);
+            }
+        });
+    }
+
+    public void postSendMessage(String content, String contact_username, MessageRepo messageRepo) {
+        Call<Void> call = webServiceAPI.sendMessage(contact_username, content);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                messageRepo.connection();
+            }
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                messageRepo.response();
+            }
+        });
+    }
 }

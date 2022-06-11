@@ -15,6 +15,7 @@ public class MessageRepo {
     private ApiContact apiContact;
     private MessageList messageList;
     private String idCurr;
+    private ApiContact apiMessageOtherServer;
 
     public MessageRepo(String session, String idCurr) {
         this.idCurr = idCurr;
@@ -30,8 +31,34 @@ public class MessageRepo {
         apiContact = new ApiContact();
     }
 
+    public void sendMessage(String myName, String contact_username, String contact_server, String content){
+        //need to change to that when the server will become real!!!
+        //apiMessageOtherServer = new ApiContact("http://" + contact_server + "/api/");
+        apiMessageOtherServer = new ApiContact("http://" + "10.0.2.2:5243" + "/api/");
+        apiMessageOtherServer.postTransfer(myName, contact_username,content,this);
+    }
+
     public LiveData<List<Message>> getAll() {
         return messageList;
+    }
+
+    public void connectionTransfer() {
+        //need to notify the user somehow
+        int a=1;
+    }
+
+    public void responseTransfer(String content, String contact_username) {
+        apiContact.postSendMessage(content, contact_username,this);
+    }
+
+    public void connection() {
+        //need to notify the user somehow
+        int a=1;
+    }
+
+    public void response() {
+        int a=1;
+
     }
 
     public class MessageList extends MutableLiveData<List<Message>> {

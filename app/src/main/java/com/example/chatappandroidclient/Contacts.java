@@ -68,6 +68,8 @@ public class Contacts extends AppCompatActivity implements SelectListener {
     public void onItemClick(Contact contact) {
         Intent intent = new Intent(this, MessagesList.class);
         intent.putExtra("contact_username", contact.getUsername());
+        intent.putExtra("myName",this.myName);
+        intent.putExtra("contact_server",contact.getServer());
         intent.putExtra("1", session);
         startActivity(intent);
     }

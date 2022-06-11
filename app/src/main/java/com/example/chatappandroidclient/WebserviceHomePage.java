@@ -26,9 +26,15 @@ public interface WebserviceHomePage {
     @POST("invitations")
     Call<Void> invitation(@Body Invitation invitation);
 
+    @POST("transfer")
+    Call<Void> transfer(@Body Transfer transfer);
+
     @GET("contacts/{id}/messages")
     Call<List<Message>> getMessages(@Header ("Cookie") String session ,@Path("id")String id);
 
     @POST("users/addToken")
     Call<Void> SendToken(@Header ("Cookie") String session , @Body Token token);
+
+    @POST("contacts/{contact}/messages")
+    Call<Void> sendMessage(@Path("contact")String contact_username, @Body String content);
 }

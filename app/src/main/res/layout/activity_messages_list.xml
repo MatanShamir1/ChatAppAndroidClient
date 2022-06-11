@@ -40,7 +40,8 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
-        android:layout_height="577dp">
+        android:layout_height="match_parent"
+        android:layout_weight="30">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messages_list"
@@ -51,6 +52,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
+        android:layout_weight="1"
         android:background="@color/cardview_dark_background"
         android:orientation="horizontal"
         android:layout_width="fill_parent"

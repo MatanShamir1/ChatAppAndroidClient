@@ -15,6 +15,10 @@ public class MessageViewModel extends ViewModel {
         messageList = repo.getAll();
     }
 
+    public void sendMessage(String myName, String contact_username, String contact_server, String content) {
+        repo.sendMessage(myName, contact_username, contact_server, content);
+    }
+
     public LiveData<List<Message>> getMessages() {
         return messageList;
     }
