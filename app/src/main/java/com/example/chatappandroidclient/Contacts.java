@@ -2,6 +2,9 @@ package com.example.chatappandroidclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,16 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import adapters.ContactListAdapter;
 
 public class Contacts extends AppCompatActivity implements SelectListener {
-
+    List<Contact> contactList;
     private String session;
     private ContactviewModel contactviewModel;
     RecyclerView Contacts;
     private ContactListAdapter adapter;
     private String myName;
-
+    private String str = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +54,37 @@ public class Contacts extends AppCompatActivity implements SelectListener {
         Contacts.setLayoutManager(new LinearLayoutManager(this));
         contactviewModel.getContacts().observe(
                 this, contacts -> {
-                    adapter.setContacts(contacts);
+                    contactList = new ArrayList<>(contacts);
+                    adapter.setContacts(contactList);
                 }
         );
+        EditText editText = findViewById(R.id.search_sx);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                str = editText.getText().toString();
+                List<Contact> contacts = new ArrayList<>();
+                for (int i = 0; i < contactList.size(); i++)
+                {
+                    if (contactList.get(i).getId().contains(str))
+                    {
+                        contacts.add(contactList.get(i));
+                    }
+                }
+                adapter.setContacts(contacts);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
 

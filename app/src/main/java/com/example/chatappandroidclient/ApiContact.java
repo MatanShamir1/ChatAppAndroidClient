@@ -64,6 +64,9 @@ public class ApiContact {
     }
 
     public void Post_Add_Contact(Contact newContact, String session, AddContact addContact) {
+        // !!!!!!!!!
+        String User[] = newContact.getServer().split(":");
+        newContact.setServer("localhost:" + User[1]);
         Call<Void> call = webServiceAPI.addContact(session, newContact);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -78,8 +81,10 @@ public class ApiContact {
         });
     }
 
-    public void Post_Invitation(String from, String to, AddContact addContact) {
-        Call<Void> call = webServiceAPI.invitation(new Invitation(from, to, MyApplication.context.getString(R.string.BaseUrl)));
+    public void Post_Invitation(String from, String to, AddContact addContact, Contact ContactServer) {
+        // !!!!!!!!!!
+        String User[] = ContactServer.getServer().split(":");
+        Call<Void> call = webServiceAPI.invitation(new Invitation(from, to, "localhost:" + User[1]));
 //        Call<Void> call = webServiceAPI.invitation(from,to,MyApplication.context.getString(R.string.BaseUrl)));
 
         call.enqueue(new Callback<Void>() {
@@ -124,9 +129,9 @@ public class ApiContact {
         });
     }
 
-    public void sendToken(String session , String newToken, Login log) {
+    public void sendToken(String session, String newToken, Login log) {
         Token token = new Token(newToken);
-        Call<Void> call = webServiceAPI.SendToken(session , token);
+        Call<Void> call = webServiceAPI.SendToken(session, token);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
@@ -156,9 +161,8 @@ public class ApiContact {
         });
     }
 
-    public void postSendMessage(String content, String contact_username, MessageRepo messageRepo) {
-        Call<Void> call = webServiceAPI.sendMessage(contact_username, content);
-
+    public void postSendMessage(String session, String content, String contact_username, MessageRepo messageRepo) {
+        Call<Void> call = webServiceAPI.sendMessage(session, contact_username, new Content(content));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {

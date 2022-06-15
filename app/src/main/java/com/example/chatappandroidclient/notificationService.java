@@ -1,5 +1,7 @@
 package com.example.chatappandroidclient;
 
+import static androidx.core.app.ShareCompat.getCallingActivity;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
@@ -12,7 +14,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class notificationService extends FirebaseMessagingService {
+
     public notificationService() {
+
     }
 
     @Override
@@ -24,9 +28,9 @@ public class notificationService extends FirebaseMessagingService {
                     .setContentTitle(remoteMessage.getNotification().getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.notify(1, builder.build());
+
         }
     }
 

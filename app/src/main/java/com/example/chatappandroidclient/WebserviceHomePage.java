@@ -36,5 +36,5 @@ public interface WebserviceHomePage {
     Call<Void> SendToken(@Header ("Cookie") String session , @Body Token token);
 
     @POST("contacts/{contact}/messages")
-    Call<Void> sendMessage(@Path("contact")String contact_username, @Body String content);
+    Call<Void> sendMessage(@Header ("Cookie") String session ,@Path("contact")String contact_username, @Body Content content);
 }

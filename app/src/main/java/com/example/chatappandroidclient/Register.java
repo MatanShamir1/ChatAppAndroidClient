@@ -61,13 +61,23 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     public boolean check_input(String userName, String password, String password2, String Nickname) {
         boolean flag = true;
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=!])"
+                + "(?=\\S+$).{8,20}$";
+        String regex2 = "^[0-9\\-]+$";
         String s;
         if (!password.equals(password2)) {
             flag = false;
             TextView text = (TextView) findViewById(R.id.visible);
             text.setVisibility(View.VISIBLE);
         }
-        if (!userName.matches("[a-zA-Z]+")) {
+        if (!password.matches(regex)){
+            flag = false;
+            TextView text = (TextView) findViewById(R.id.visible);
+            text.setVisibility(View.VISIBLE);
+        }
+        if (!userName.matches(regex2)) {
             flag = false;
             TextView text = (TextView) findViewById(R.id.visible);
             text.setVisibility(View.VISIBLE);

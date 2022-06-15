@@ -29,7 +29,7 @@ public class AddContact extends AppCompatActivity {
                     server_address.getText().toString(), null, null,
                     contact_username.getText().toString());
             apiContactOtherServer = new ApiContact("http://" + newContact.getServer() + "/api/");
-            apiContactOtherServer.Post_Invitation(myName, newContact.getId(),this);
+            apiContactOtherServer.Post_Invitation(myName, newContact.getId(),this, newContact);
 
         });
     }
