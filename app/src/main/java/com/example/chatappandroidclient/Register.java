@@ -10,13 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
+    private ChatAppDB db;
+    private ImagesDao imagesDao;
     private ImageView imageView;
+    MyApplication myApplication;
     private static final int RESULT_LOAD_IMAGE = 1;
+    private Uri selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = Room.databaseBuilder(myApplication.context, ChatAppDB.class, "ChatsDB")
+                .allowMainThreadQueries()
+                .build();
+
+        imagesDao = db.imagesDao();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Button btn;
@@ -54,8 +64,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void response() {
-//        Intent i = new Intent(this, Login.class); // this has information of where i am and where do i want to act on.
-//        startActivity(i);
+        TextView username = findViewById(R.id.Username);
+        imagesDao.insert(new ProfilePicture(username.toString(), selected.toString()));
         this.finish();
     }
 
@@ -100,7 +110,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
-            Uri selected = data.getData();
+            selected = data.getData();
             imageView.setImageURI(selected);
         }
     }

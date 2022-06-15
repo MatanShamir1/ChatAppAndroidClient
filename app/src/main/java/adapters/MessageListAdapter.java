@@ -31,27 +31,23 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     }
 
     class MessageSendViewHolder extends MessageViewHolder {
-        private TextView date;
         private TextView time;
         private TextView content;
         // need to add image and check if need to create layout for both receive and send.
         public MessageSendViewHolder(View viewItem) {
             super(viewItem);
             //notice the "me" and the "other"! these are different view components!!!
-            date = viewItem.findViewById(R.id.text_gchat_date_other);
             time = viewItem.findViewById(R.id.text_gchat_timestamp_other);
             content = viewItem.findViewById(R.id.text_gchat_message_other);
         }
     }
 
     class MessageReceiveViewHolder extends MessageViewHolder {
-        private TextView date;
         private TextView time;
         private TextView content;
         // need to add image and check if need to create layout for both receive and send.
         public MessageReceiveViewHolder(View viewItem, String type) {
             super(viewItem);
-            date = viewItem.findViewById(R.id.text_gchat_date_me);
             time = viewItem.findViewById(R.id.text_gchat_timestamp_me);
             content = viewItem.findViewById(R.id.text_gchat_message_me);
         }
@@ -85,10 +81,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
             Message message = messageList.get(position);
             if(holder instanceof MessageSendViewHolder){
                 ((MessageSendViewHolder)holder).content.setText(message.getContent());
-                ((MessageSendViewHolder)holder).date.setText(message.getCreated());
+                ((MessageSendViewHolder)holder).time.setText(message.getCreated());
             } else {
                 ((MessageReceiveViewHolder)holder).content.setText(message.getContent());
-                ((MessageReceiveViewHolder)holder).date.setText(message.getCreated());
+                ((MessageReceiveViewHolder)holder).time.setText(message.getCreated());
             }
 
         }

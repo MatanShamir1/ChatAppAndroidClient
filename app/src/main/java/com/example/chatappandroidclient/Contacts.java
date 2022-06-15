@@ -31,13 +31,23 @@ public class Contacts extends AppCompatActivity implements SelectListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         contactviewModel = new ContactviewModel(getIntent().getExtras().getString("1"));
-        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
+
+
         this.session = getIntent().getExtras().getString("1");
         //get the logged in user's username, for add contact activity.
         this.myName = getIntent().getExtras().getString("myName");
+
+        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddContact.class);
             intent.putExtra("1",this.session);
+            intent.putExtra("myName",this.myName);
+            startActivity(intent);
+        });
+
+        FloatingActionButton btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Settings.class);
             intent.putExtra("myName",this.myName);
             startActivity(intent);
         });

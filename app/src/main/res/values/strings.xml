@@ -22,4 +22,7 @@
     <string name="BaseUrl">http://10.0.2.2:5243/api/</string>
     <string name="there_is_no_such_contact_mate">there is no such contact, mate</string>
     <string name="password_or_nickname_are_incorrect">password or nickname are incorrect</string>
+    <string name="select_image">SELECT IMAGE</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="profilepicture">profilePicture</string>
 </resources>

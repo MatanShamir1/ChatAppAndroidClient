@@ -16,7 +16,6 @@ import com.example.chatappandroidclient.Contact;
 import com.example.chatappandroidclient.R;
 import com.example.chatappandroidclient.SelectListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder>{
@@ -57,6 +56,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             holder.last_message.setText(current.getLast());
             holder.contact_username.setText(current.getName());
             holder.time.setText(current.getLastDate());
+            holder.contact_image.setImageResource(R.drawable.jon_snow);
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
