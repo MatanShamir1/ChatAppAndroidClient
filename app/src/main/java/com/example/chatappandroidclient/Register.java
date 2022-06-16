@@ -23,7 +23,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private ImagesDao imagesDao;
     private ImageView imageView;
     MyApplication myApplication;
-    private static final int RESULT_LOAD_IMAGE = 1;
+    static final int RESULT_LOAD_IMAGE = 1;
     private Bitmap selected;
     final int CAMERA_INTENT = 51;
 

@@ -18,11 +18,15 @@ public class ApiContact {
     private MutableLiveData<List<Contact>> postListData;
     private ContactDao dao;
     Retrofit retrofit;
+    public static String baseUrl;
     WebserviceHomePage webServiceAPI;
 
     public ApiContact() {
+        if(baseUrl == null){
+            baseUrl = MyApplication.context.getString(R.string.BaseUrl);
+        }
         retrofit = new Retrofit.Builder().
-                baseUrl(MyApplication.context.getString(R.string.BaseUrl)).
+                baseUrl(baseUrl).
                 addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebserviceHomePage.class);
     }
