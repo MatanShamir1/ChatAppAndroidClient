@@ -47,12 +47,17 @@ from this activity you can skip to this three activity that we mentioned let see
 ### Message list 
 In this activity you can chat we the person you want selected.
 you can also return to contact list activity, we also add the abilty to see the message that we get in live with the firebase service.
+<br />
 ![image](https://user-images.githubusercontent.com/84122241/174073143-70c8174d-4a77-4b94-a8a5-8f18aeb37c6a.png)
-
+<br />
 ### Add contact
-
+In this activity you can add contact to the user that is login right now.
+important!!! please write correct the ip and the port of the user that you to add.
+exmpale - 10.0.2.2:5243 
+this is we commuincate with our server in  the android.
+<br />
 ![image](https://user-images.githubusercontent.com/84122241/174075353-5b7cc4dc-fade-4867-8634-1c0678e799fa.png)
-
+<br />
 ## How-to-open-the-app
 
 1. If you dont have visual studio's newest version, please install it.
