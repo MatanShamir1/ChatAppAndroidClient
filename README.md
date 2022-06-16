@@ -78,12 +78,13 @@ in the last activity we see two option that the app is given to the user , one i
  ``
    you can also clone via android studio UI.
  ``
+ 
  <br />
+ ``
 3. in the server's project, open the console and write down:
-``
   Install-Package FirebaseAdmin -Version 2.3.0
-``
-   this installs the package needed to be able to write post requests to the firebase server.  
+   this installs the package needed to be able to write post requests to the firebase server. 
+  ``
 <br />
 4. run the server on port 5243, by clicking the "play" button on visual studio.
 <br />
