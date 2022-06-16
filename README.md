@@ -69,7 +69,6 @@ in the last activity we see two option that the app is given to the user , one i
 ``
   git clone https://github.com/MatanShamir1/ChatAppServer/tree/ex3
 ``
-
 <br />
    also make sure that you are in your desired directory.
    you can also use visual studio's UI and clone the existing server's project from there.
