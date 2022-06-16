@@ -54,9 +54,15 @@ you can also return to contact list activity, we also add the abilty to see the 
 In this activity you can add contact to the user that is login right now.
 important!!! please write correct the ip and the port of the user that you to add.
 exmpale - 10.0.2.2:5243 
-this is we commuincate with our server in  the android.
+this is how we commuincate with our server in the android.
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174075353-5b7cc4dc-fade-4867-8634-1c0678e799fa.png)
+<br />
+
+### Change server or image
+in the last activity we see two option that the app is given to the user , one is upload image and second is to change the server that the user want to get request.
+<br />
+![image](https://user-images.githubusercontent.com/84122241/174078251-439e07f7-67ce-45d0-ba0c-a98ffcd8aa53.png)
 <br />
 ## How-to-open-the-app
 
