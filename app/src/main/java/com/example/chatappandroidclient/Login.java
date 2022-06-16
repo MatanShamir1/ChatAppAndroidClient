@@ -1,10 +1,13 @@
 package com.example.chatappandroidclient;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -21,9 +24,15 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         apiContact = new ApiContact();
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
+
         //create a firebase connection to the server, to be able to get realtime notifications.
-
-
         Button btnToRegister = findViewById(R.id.btnToRegister);
         btnToRegister.setOnClickListener(v -> {
             Intent i = new Intent(this, Register.class);
