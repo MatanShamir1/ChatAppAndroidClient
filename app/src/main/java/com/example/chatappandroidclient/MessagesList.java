@@ -4,12 +4,12 @@ import static com.example.chatappandroidclient.MyApplication.context;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,24 +17,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import adapters.MessageListAdapter;
 
 public class MessagesList extends AppCompatActivity {
-
-    private ChatAppDB db;
-
-    private MessageDao messagesDao;
     private String contact_username;
     private List<Message> messages;
     private RecyclerView Messages;
     private MessageViewModel viewModel;
     private String myName;
     private String contact_server;
+    private String contact_nickname;
 
 
     @Override
@@ -45,6 +40,7 @@ public class MessagesList extends AppCompatActivity {
             contact_username = getIntent().getExtras().getString("contact_username");
             myName = getIntent().getExtras().getString("myName");
             contact_server = getIntent().getExtras().getString("contact_server");
+            contact_nickname = getIntent().getExtras().getString("contact_nickname");
         }
 
         viewModel = new MessageViewModel(getIntent().getExtras().getString("1"), contact_username);
@@ -55,10 +51,27 @@ public class MessagesList extends AppCompatActivity {
             EditText paddle = ((EditText) findViewById(R.id.textInput));
             paddle.setText("");
         });
+
         FloatingActionButton btn_back = findViewById(R.id.btn_back_to_contacts);
         btn_back.setOnClickListener(view -> {
             finish();
         });
+
+        //make the contact username visible
+        TextView contact_name = findViewById(R.id.contact_name);
+        contact_name.setText("Chat with: " + this.contact_nickname);
+
+        //make the contact profile picture visible
+        ImageView contact_image = findViewById(R.id.contact_image);
+        Bitmap imgBitmap = viewModel.getContactImageByUsername(this.contact_username);
+        if(imgBitmap != null){
+            contact_image.setImageBitmap(imgBitmap);
+            contact_image.getLayoutParams().height = 180;
+            contact_image.getLayoutParams().width = 130;
+        } else {
+            contact_image.setImageResource(R.drawable.jon_snow);
+        }
+
         Messages = findViewById(R.id.messages_list);
         final MessageListAdapter adapter = new MessageListAdapter(this);
         Messages.setAdapter(adapter);

@@ -1,5 +1,7 @@
 package com.example.chatappandroidclient;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,12 +9,21 @@ import java.util.List;
 
 public class MessageViewModel extends ViewModel {
 
-    private MessageRepo repo;
+    private static MessageRepo repo;
     private LiveData<List<Message>> messageList;
 
     public MessageViewModel(String Session, String idCurr) {
-        repo = new MessageRepo(Session, idCurr);
+        if(repo == null){
+            repo = new MessageRepo(Session, idCurr);
+        }
         messageList = repo.getAll();
+    }
+
+    public MessageViewModel() {
+    }
+
+    public void newMessage(){
+        repo.response();
     }
 
     public void sendMessage(String myName, String contact_username, String contact_server, String content) {
@@ -23,4 +34,7 @@ public class MessageViewModel extends ViewModel {
         return messageList;
     }
 
+    public Bitmap getContactImageByUsername(String contact_name) {
+        return repo.getContactImageByUsername(contact_name);
+    }
 }

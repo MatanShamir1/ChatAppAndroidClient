@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -40,57 +41,44 @@
         </LinearLayout>
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linerVertical1"
+        android:layout_width="match_parent"
+        android:layout_height="658dp"
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_weight="1"
-        android:background="@color/cardview_dark_background"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:baselineAligned="true">
-        <LinearLayout
-            android:id="@+id/linerVertical1"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="30dp"
+            android:contentDescription="@string/profilepicture"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEditPic"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:layout_gravity="right"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:text="@string/edit_profile_picture"
+            tools:ignore="MissingConstraints,RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/profilePicture"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:contentDescription="@string/profilepicture" />
+            android:autofillHints=""
+            tools:ignore="MissingConstraints" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnEditPic"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@drawable/button_background"
-                android:text="@string/edit_profile_picture"
-                tools:ignore="RtlHardcoded" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEditServer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnEditServer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@drawable/button_background"
-                android:text="@string/edit_profile_picture"
-                tools:ignore="RtlHardcoded" />
-        </LinearLayout>
-
-    </LinearLayout>
+            android:layout_gravity="right"
+            android:background="@drawable/button_background"
+            android:text="@string/edit_server_address"
+            tools:ignore="MissingConstraints,RtlHardcoded" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

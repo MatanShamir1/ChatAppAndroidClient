@@ -1,5 +1,7 @@
 package com.example.chatappandroidclient;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
@@ -7,9 +9,12 @@ import androidx.room.Room;
 import java.util.ArrayList;
 import java.util.List;
 
+import converters.DataConverter;
+
 public class MessageRepo {
     private String session;
     private MessageDao dao;
+    private ImagesDao imagesDao;
     private ChatAppDB db;
     private MyApplication myApplication;
     private ApiContact apiContact;
@@ -27,6 +32,7 @@ public class MessageRepo {
                 .build();
 
         dao = db.messagesDao();
+        imagesDao = db.imagesDao();
         messageList = new MessageList();
         apiContact = new ApiContact();
     }
@@ -53,7 +59,6 @@ public class MessageRepo {
 
     public void connectionTransfer() {
         //need to notify the user somehow
-        int a = 1;
     }
 
     public void responseTransfer(String content, String contact_username) {
@@ -62,11 +67,20 @@ public class MessageRepo {
 
     public void connection() {
         //need to notify the user somehow
-        int a = 1;
     }
 
     public void response() {
         apiContact.get_messages(messageList, session, idCurr);
+    }
+
+    public Bitmap getContactImageByUsername(String contact_name) {
+        ProfilePicture pp = imagesDao.getPictureById(contact_name);
+        if(pp != null){
+            return DataConverter.convertByteArrayToBitmap(pp.getPicture());
+        } else {
+            return null;
+        }
+
     }
 
     public class MessageList extends MutableLiveData<List<Message>> {

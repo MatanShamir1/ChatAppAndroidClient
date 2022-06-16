@@ -25,4 +25,7 @@
     <string name="select_image">SELECT IMAGE</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
     <string name="profilepicture">profilePicture</string>
+    <string name="take_a_picture">take a picture</string>
+    <string name="select_from_gallery">select from gallery</string>
+    <string name="edit_server_address">edit server address</string>
 </resources>

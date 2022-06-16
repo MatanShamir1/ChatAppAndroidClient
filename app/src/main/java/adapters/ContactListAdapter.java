@@ -91,12 +91,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 //the user did not upload an image.
                 holder.contact_image.setImageResource(R.drawable.jon_snow);
             }
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(contacts.get(position));
-                }
-            });
+            holder.cardView.setOnClickListener(v -> listener.onItemClick(contacts.get(position)));
         }
     }
 

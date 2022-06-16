@@ -1,7 +1,5 @@
 package com.example.chatappandroidclient;
 
-import static androidx.core.app.ShareCompat.getCallingActivity;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
@@ -14,9 +12,10 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class notificationService extends FirebaseMessagingService {
+    private MessageViewModel messageViewModel;
 
     public notificationService() {
-
+        messageViewModel = new MessageViewModel();
     }
 
     @Override
@@ -30,7 +29,7 @@ public class notificationService extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.notify(1, builder.build());
-
+            messageViewModel.newMessage();
         }
     }
 

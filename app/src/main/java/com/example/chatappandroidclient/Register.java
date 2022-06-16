@@ -1,5 +1,6 @@
 package com.example.chatappandroidclient;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -24,6 +25,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     MyApplication myApplication;
     private static final int RESULT_LOAD_IMAGE = 1;
     private Bitmap selected;
+    final int CAMERA_INTENT = 51;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         imagesDao = db.imagesDao();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Button btn;
         Button reg = findViewById(R.id.btnRegister);
         imageView = findViewById(R.id.IVPreviewImage);
-        btn = findViewById(R.id.BSelectImage);
-        btn.setOnClickListener(this);
+
+        //the button to add an image from gallery, set its click listener to me.
+        Button btnSelect = findViewById(R.id.BSelectImage);
+        btnSelect.setOnClickListener(this);
+
+        //the button to take a picture, set also click listener to me.
+        Button btnTake = findViewById(R.id.TakePicture);
+        btnTake.setOnClickListener(this);
+
         Button btnToLogin = findViewById(R.id.btnToLogin);
         btnToLogin.setOnClickListener(v -> {
             Intent i = new Intent(this, Login.class); // this has information of where i am and where do i want to act on.
@@ -109,24 +117,39 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, RESULT_LOAD_IMAGE);
+        //need to find out if the action was take picture or add image.
+        if((Button)v == findViewById(R.id.TakePicture)){
+            takePicture(v);
+        } else {
+            Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(gallery, RESULT_LOAD_IMAGE);
+        }
+    }
+
+    public void takePicture(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent, CAMERA_INTENT);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
+        //if took a picture
+        if(requestCode == CAMERA_INTENT && resultCode == Activity.RESULT_OK){
+            selected = (Bitmap) data.getExtras().get("data");
+        }
+        //if chosen a picture from gallery
+        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             try {
                 selected = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            ContentResolver contentResolver = myApplication.context.getContentResolver();
-//            myApplication.context.grantUriPermission(myApplication.context.getPackageName(), selected,Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-//            contentResolver.takePersistableUriPermission(selected, takeFlags);
+        }
+        if(selected != null){
             imageView.setImageBitmap(selected);
         }
     }

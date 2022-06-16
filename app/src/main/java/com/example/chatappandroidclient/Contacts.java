@@ -81,7 +81,7 @@ public class Contacts extends AppCompatActivity implements SelectListener {
                 List<Contact> contacts = new ArrayList<>();
                 for (int i = 0; i < contactList.size(); i++)
                 {
-                    if (contactList.get(i).getId().contains(str))
+                    if (contactList.get(i).getName().contains(str))
                     {
                         contacts.add(contactList.get(i));
                     }
@@ -112,6 +112,7 @@ public class Contacts extends AppCompatActivity implements SelectListener {
     public void onItemClick(Contact contact) {
         Intent intent = new Intent(this, MessagesList.class);
         intent.putExtra("contact_username", contact.getUsername());
+        intent.putExtra("contact_nickname", contact.getName());
         intent.putExtra("myName",this.myName);
         intent.putExtra("contact_server",contact.getServer());
         intent.putExtra("1", session);
