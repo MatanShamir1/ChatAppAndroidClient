@@ -77,7 +77,6 @@ in the last activity we see two option that the app is given to the user , one i
   git clone https://github.com/MatanShamir1/ChatAppAndroidClient
  ``
    you can also clone via android studio UI.
- ``
  <br />
  ``
 3. in the server's project, open the console and write down:
