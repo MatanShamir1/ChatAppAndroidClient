@@ -9,9 +9,9 @@ public class ProfilePicture {
     @PrimaryKey(autoGenerate = false)
     @NonNull
     String username;
-    private String picture;
+    private byte[] picture;
 
-    public ProfilePicture(String username, String picture) {
+    public ProfilePicture(String username, byte[] picture) {
         this.username = username;
         this.picture = picture;
     }
@@ -20,11 +20,11 @@ public class ProfilePicture {
         return username;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
 

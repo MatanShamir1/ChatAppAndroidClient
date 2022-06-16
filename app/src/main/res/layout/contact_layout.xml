@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_gchat_message_other"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         app:cardBackgroundColor="#eef1f6"
         tools:ignore="MissingConstraints">
         <LinearLayout

@@ -1,6 +1,6 @@
 package com.example.chatappandroidclient;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import converters.DataConverter;
 
 public class Settings extends AppCompatActivity {
     private ChatAppDB db;
@@ -29,9 +31,9 @@ public class Settings extends AppCompatActivity {
 
         //if the user has a profile picture uploaded
         if(pp!=null){
-            String imageString = pp.getPicture();
-            Uri imageUri = Uri.parse(imageString);
-            profilePicture.setImageURI(imageUri);
+            byte[] imageBytes = pp.getPicture();
+            Bitmap imageBitmap = DataConverter.convertByteArrayToBitmap(imageBytes);
+            profilePicture.setImageBitmap(imageBitmap);
         } else{
             //the user did not upload an image.
             profilePicture.setImageResource(R.drawable.jon_snow);

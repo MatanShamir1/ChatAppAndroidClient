@@ -1,6 +1,7 @@
 package com.example.chatappandroidclient;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,16 +13,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import java.io.IOException;
+
+import converters.DataConverter;
+
 public class Register extends AppCompatActivity implements View.OnClickListener {
     private ChatAppDB db;
     private ImagesDao imagesDao;
     private ImageView imageView;
     MyApplication myApplication;
     private static final int RESULT_LOAD_IMAGE = 1;
-    private Uri selected;
+    private Bitmap selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        myApplication = new MyApplication();
         db = Room.databaseBuilder(myApplication.context, ChatAppDB.class, "ChatsDB")
                 .allowMainThreadQueries()
                 .build();
@@ -65,7 +71,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     public void response() {
         TextView username = findViewById(R.id.Username);
-        imagesDao.insert(new ProfilePicture(username.toString(), selected.toString()));
+        imagesDao.insert(new ProfilePicture(username.getText().toString(),
+                DataConverter.convertBitmapToByteArray(selected)));
         this.finish();
     }
 
@@ -110,8 +117,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
-            selected = data.getData();
-            imageView.setImageURI(selected);
+            Uri imageUri = data.getData();
+            try {
+                selected = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            ContentResolver contentResolver = myApplication.context.getContentResolver();
+//            myApplication.context.grantUriPermission(myApplication.context.getPackageName(), selected,Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+//            contentResolver.takePersistableUriPermission(selected, takeFlags);
+            imageView.setImageBitmap(selected);
         }
     }
 }

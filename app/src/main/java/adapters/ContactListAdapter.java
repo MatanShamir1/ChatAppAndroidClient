@@ -2,6 +2,7 @@ package adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import com.example.chatappandroidclient.ChatAppDB;
 import com.example.chatappandroidclient.Contact;
+import com.example.chatappandroidclient.ImagesDao;
+import com.example.chatappandroidclient.MyApplication;
+import com.example.chatappandroidclient.ProfilePicture;
 import com.example.chatappandroidclient.R;
 import com.example.chatappandroidclient.SelectListener;
 
 import java.util.List;
+
+import converters.DataConverter;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder>{
 
@@ -39,15 +47,28 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             time = itemView.findViewById(R.id.last_message_date);
         }
     }
+
+    //adapter fields
     private SelectListener listener;
     private final LayoutInflater mInflater;
     private List<Contact> contacts;
+    private ChatAppDB db;
+    private ImagesDao imagesDao;
+    private MyApplication myApplication;
+
     @NonNull
     @Override
     public ContactListAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewItem = mInflater.inflate(R.layout.contact_layout, parent, false);
+        myApplication = new MyApplication();
+        db = Room.databaseBuilder(myApplication.context, ChatAppDB.class, "ChatsDB")
+                .allowMainThreadQueries()
+                .build();
+
+        imagesDao = db.imagesDao();
         return new ContactViewHolder(viewItem);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ContactListAdapter.ContactViewHolder holder, @SuppressLint("RecyclerView") int position) {
@@ -56,14 +77,26 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             holder.last_message.setText(current.getLast());
             holder.contact_username.setText(current.getName());
             holder.time.setText(current.getLastDate());
-            holder.contact_image.setImageResource(R.drawable.jon_snow);
+
+            //try loading the contact image from db. if can't, load jon snow.
+            ProfilePicture pp = imagesDao.getPictureById(current.getUsername());
+            //if the user has a profile picture uploaded
+            if(pp!=null){
+                byte[] imageBytes = pp.getPicture();
+                Bitmap imageBitmap = DataConverter.convertByteArrayToBitmap(imageBytes);
+                holder.contact_image.setImageBitmap(imageBitmap);
+                holder.contact_image.getLayoutParams().height = 180;
+                holder.contact_image.getLayoutParams().width = 130;
+            } else{
+                //the user did not upload an image.
+                holder.contact_image.setImageResource(R.drawable.jon_snow);
+            }
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onItemClick(contacts.get(position));
                 }
             });
-            // holder.profile_pic.setImageResource(current.getImage());
         }
     }
 
