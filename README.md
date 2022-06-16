@@ -72,6 +72,7 @@ in the last activity we see two option that the app is given to the user , one i
 <br />
    also make sure that you are in your desired directory.
    you can also use visual studio's UI and clone the existing server's project from there.
+ <br />
 2. clone the android studio project, this repository. type in the cmd you chose in step 1:
  ``
   git clone https://github.com/MatanShamir1/ChatAppAndroidClient
