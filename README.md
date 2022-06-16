@@ -37,17 +37,21 @@ now you can also back to login and enter with exist client , if you trying to co
 after login you will see the contact page..
 
 ### Contact list
-we are implement this list as recycle view as so you can you can in the source code..
+we are implement this list as recycle view as so you can in the source code..
 in the top you can search for specific user , you can upload image and change the server you are taking to, you can also add new contact. 
-from this activity you can skip to this three activity that 
+from this activity you can skip to this three activity that we mentioned let see the message view..
+<br />
 ![image](https://user-images.githubusercontent.com/84122241/174068333-b501eba6-812b-479a-ae06-1f40800639fe.png)
-**as for now, everyone can edit anyones comments...**
+<br />
 
-## Web Service
-this project also functions as a web service for a react app.
-you can run this project, run the react app (they run from different servers)
-the react app client-side has get,post,put and delete requests to our web service regarding users, contacts, conversations and messages.
-test the react app from our **ChatApp** repo to see the web service functionality. dont forget to run it though!
+### Message list 
+In this activity you can chat we the person you want selected.
+you can also return to contact list activity, we also add the abilty to see the message that we get in live with the firebase service.
+![image](https://user-images.githubusercontent.com/84122241/174073143-70c8174d-4a77-4b94-a8a5-8f18aeb37c6a.png)
+
+### Add contact
+
+![image](https://user-images.githubusercontent.com/84122241/174075353-5b7cc4dc-fade-4867-8634-1c0678e799fa.png)
 
 ## How-to-open-the-app
 
