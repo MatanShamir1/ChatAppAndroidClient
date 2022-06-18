@@ -9,36 +9,41 @@
 
 
 ## About
-this is the client android part of the third milestone in advanced programming 2 course.
+this is the client android part of the ChapApp system. its the third milestone in advanced programming 2 course.
 
 ## Dependencies
 * Windows / Linux / macOS
 * Git
 * Visual Studio's newest version
+* Android studio
+
 ## Android Client
 here, we will expand explanation about the android client part of this project.
 ### Pages-flow-and-explanation 
 we have been asked to create client in android that communicate with the same server that we create in the ex2,
-so we create several activities as we asked let dive to it!
+so we created several activities with a flow that communicates the server from part to. lets dive right into it!
 
 ### Login page
-this is the main activity, here any user that register to our server can login.
-the client enter is phone number and his password.
+this is the main activity, here any user that's registered to our server can login.
+the client needs to enter his phone number and his password.
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174067442-b0f55067-d755-4e34-8414-f036133346b0.png)
 
 ### Register new client
-by pressing "to register" you can create a new client, specifying his details.
+by pressing "to register" you can create a new user, specifying his details.
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174067709-f03ef097-58e9-4678-9291-48b887405d30.png)
 <br />
 
-now you can also back to login and enter with exist client , if you trying to connect wrong password it wouldnt allow it.
+you can go back to login and enter with an existing client. <br />
+pay attention to the red errors in the left bottom of the page: it specifies the password needs, and the username's, and nickname's. <br />
+you are free to pick a profile picture from existing gallery or directly from your camera, but you don't have to.
+**make sure: password contains every kind of letter, number and special char, and username contains only digits- we assumed it is a phone number!!!**
 after login you will see the contact page..
 
 ### Contact list
-we are implement this list as recycle view as so you can in the source code..
-in the top you can search for specific user , you can upload image and change the server you are taking to, you can also add new contact. 
+we decided to implement our contacts list as a recycle view as so you can see in the source code.
+in the top you can search for specific user , you can upload image and change the server you are talking to, you can also add new contact. 
 from this activity you can skip to this three activity that we mentioned let see the message view..
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174068333-b501eba6-812b-479a-ae06-1f40800639fe.png)
@@ -52,15 +57,15 @@ you can also return to contact list activity, we also add the abilty to see the 
 <br />
 ### Add contact
 In this activity you can add contact to the user that is login right now.
-important!!! please write correct the ip and the port of the user that you to add.
+**important!!! please write correctly the ip and the port of the user that you to add.
 exmpale - 10.0.2.2:5243 
-this is how we commuincate with our server in the android.
+this is how we commuincate with our server in the android.**
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174075353-5b7cc4dc-fade-4867-8634-1c0678e799fa.png)
 <br />
 
 ### Change server or image
-in the last activity we see two option that the app is given to the user , one is upload image and second is to change the server that the user want to get request.
+in the last activity we see two options that the app is given to the user , one is upload image and second is to change the server that the user want to get request.
 <br />
 ![image](https://user-images.githubusercontent.com/84122241/174078251-439e07f7-67ce-45d0-ba0c-a98ffcd8aa53.png)
 <br />
@@ -92,9 +97,10 @@ in the last activity we see two option that the app is given to the user , one i
 6. you can also run the web client by cloning it and running it from the VScode environment, see the details in the readme of the 2nd milestone, ChatAppServer.
 
 ## How-to-use-the-app
-* you can register new users to the server's database as explained in the login+register parts above.
-* you can open 2 or more clients from web\android and try checking live updates from one to another.
-* you can change the user's profile pics and server addresses in the settings page, as explained above.
+* you can register new users to the server's database as explained in the login+register parts above. <br />
+* you can open 2 or more clients from web\android and try checking live updates from one to another. <br />
+* you can change the user's profile pics and server addresses in the settings page, as explained above. <br />
+* you can also use the web client from ex1 (in the newest branch- which is ex2 branch) and activate the users from different client. <br />
 
 ## Developers:
 **Matan Shamir 206960239** <br />
