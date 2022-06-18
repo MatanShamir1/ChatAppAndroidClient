@@ -110,16 +110,21 @@ public class Contacts extends AppCompatActivity implements SelectListener {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ApiContact  delete = new ApiContact();
+        delete.deleteToken(session , this);
+    }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        int a = 1;
-////        super.onResume();
-////        contacts.clear();
-////        contacts.addAll(contactsDao.getContacts());
-////        adapter.notifyDataSetChanged();
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        int a = 1;
+//        contacts.clear();
+//        contacts.addAll(contactsDao.getContacts());
+//        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onItemClick(Contact contact) {
@@ -130,5 +135,15 @@ public class Contacts extends AppCompatActivity implements SelectListener {
         intent.putExtra("contact_server",contact.getServer());
         intent.putExtra("1", session);
         startActivity(intent);
+    }
+
+
+    public void delete_suc() {
+  contactList = null;
+        session = null;
+        contactviewModel = null;
+        adapter= null;
+        myName = null;
+        str ="";
     }
 }

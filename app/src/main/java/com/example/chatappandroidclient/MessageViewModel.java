@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MessageViewModel extends ViewModel {
 
-    private static MessageRepo repo;
+    public static MessageRepo repo;
     private LiveData<List<Message>> messageList;
 
     public MessageViewModel(String Session, String idCurr) {

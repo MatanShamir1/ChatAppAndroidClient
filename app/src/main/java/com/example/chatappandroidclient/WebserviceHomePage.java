@@ -37,4 +37,7 @@ public interface WebserviceHomePage {
 
     @POST("contacts/{contact}/messages")
     Call<Void> sendMessage(@Header ("Cookie") String session ,@Path("contact")String contact_username, @Body Content content);
+    @POST("users/deleteToken")
+    Call<Void> deleteToken(@Header ("Cookie") String session);
+
 }

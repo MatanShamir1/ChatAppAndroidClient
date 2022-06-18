@@ -77,7 +77,7 @@ public class MessagesList extends AppCompatActivity {
         //make the contact profile picture visible
         ImageView contact_image = findViewById(R.id.contact_image);
         Bitmap imgBitmap = viewModel.getContactImageByUsername(this.contact_username);
-        if(imgBitmap != null){
+        if (imgBitmap != null) {
             contact_image.setImageBitmap(imgBitmap);
             contact_image.getLayoutParams().height = 180;
             contact_image.getLayoutParams().width = 130;
@@ -110,17 +110,30 @@ public class MessagesList extends AppCompatActivity {
                                 view.getWindowToken(), 0);
                 EditText paddle = ((EditText) findViewById(R.id.textInput));
                 paddle.setText("");
-            }});
+            }
+        });
 
 //        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
 
-        }
-
-
-        @Override
-        protected void onResume () {
-            super.onResume();
-            InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(Messages.getWindowToken(), 0);
-        }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        contact_username = null;
+        messages = null;
+        Messages = null;
+        viewModel = null;
+        myName = null;
+        contact_server = null;
+        contact_nickname = null;
+        MessageViewModel.repo = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(Messages.getWindowToken(), 0);
+    }
+}

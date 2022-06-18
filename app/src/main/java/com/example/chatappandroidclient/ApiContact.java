@@ -182,4 +182,19 @@ public class ApiContact {
             }
         });
     }
+
+    public void deleteToken(String session, Contacts contacts) {
+        Call<Void> call = webServiceAPI.deleteToken(session);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                contacts.delete_suc();
+            }
+        });
+    }
 }
