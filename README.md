@@ -71,24 +71,31 @@ in the last activity we see two options that the app is given to the user , one 
 <br />
 ## How-to-open-the-app
 1 First, you need to clone the server's project. open terminal (if on linux) or gitbash if on windows (you can also use powershell), and type:
+<br />
 ``
   git clone https://github.com/MatanShamir1/ChatAppServer/tree/ex3
 ``
+<br />
 <br /> <br />
    also make sure that you are in your desired directory.
    you can also use visual studio's UI and clone the existing server's project from there.
  <br /> <br />
-2. clone the android studio project, this repository. type in the cmd you chose in step 1:
+2. clone the android studio project, this repository. type in the cmd you chose in step 1: 
+ <br />
  ``
   git clone https://github.com/MatanShamir1/ChatAppAndroidClient
  ``
+ <br />
    you can also clone via android studio UI.
  <br /> <br />
- ``
+ 
 3. in the server's project, open the console and write down:
+4. <br />
+``
   Install-Package FirebaseAdmin -Version 2.3.0
-   this installs the package needed to be able to write post requests to the firebase server. 
-  ``
+``
+<br />
+this installs the package needed to be able to write post requests to the firebase server. 
 <br /> <br />
 4. run the server on port 5243, by clicking the "play" button on visual studio.
 <br /> <br />
