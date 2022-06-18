@@ -87,9 +87,12 @@ public class ApiContact {
 
     public void Post_Invitation(String from, String to, AddContact addContact, Contact ContactServer) {
         // !!!!!!!!!!
-        String User[] = ContactServer.getServer().split(":");
-        Call<Void> call = webServiceAPI.invitation(new Invitation(from, to, "localhost:" + User[1]));
-//        Call<Void> call = webServiceAPI.invitation(from,to,MyApplication.context.getString(R.string.BaseUrl)));
+        String[] server_address = ContactServer.getServer().split(":");
+        if(server_address.length!=2){
+            addContact.connectionInvitation();
+            return;
+        }
+        Call<Void> call = webServiceAPI.invitation(new Invitation(from, to, "localhost:" + server_address[1]));
 
         call.enqueue(new Callback<Void>() {
             @Override
