@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private ImageView imageView;
     MyApplication myApplication;
     static final int RESULT_LOAD_IMAGE = 1;
-    private Bitmap selected;
+    private Bitmap selected = null;
     final int CAMERA_INTENT = 51;
 
     @Override
@@ -93,8 +93,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     public void response() {
         TextView username = findViewById(R.id.Username);
-        imagesDao.insert(new ProfilePicture(username.getText().toString(),
-                DataConverter.convertBitmapToByteArray(selected)));
+        if(selected != null) {
+            imagesDao.insert(new ProfilePicture(username.getText().toString(),
+                    DataConverter.convertBitmapToByteArray(selected)));
+        }
         this.finish();
     }
 
