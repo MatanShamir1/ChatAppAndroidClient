@@ -5,6 +5,8 @@ import static com.example.chatappandroidclient.MyApplication.context;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +39,16 @@ public class MessagesList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_list);
+
+        //make the actionbar prettier
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
+
         if (getIntent().getExtras() != null) {
             contact_username = getIntent().getExtras().getString("contact_username");
             myName = getIntent().getExtras().getString("myName");

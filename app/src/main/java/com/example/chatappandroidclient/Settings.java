@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -36,6 +39,15 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //make the actionbar prettier
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
 
         db = Room.databaseBuilder(myApplication.context, ChatAppDB.class, "ChatsDB")
                 .allowMainThreadQueries()

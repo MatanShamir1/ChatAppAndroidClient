@@ -1,11 +1,14 @@
 package com.example.chatappandroidclient;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddContact extends AppCompatActivity {
@@ -16,6 +19,16 @@ public class AddContact extends AppCompatActivity {
     private Contact newContact;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //make the actionbar prettier
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
+
         apiContactMyServer = new ApiContact();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);

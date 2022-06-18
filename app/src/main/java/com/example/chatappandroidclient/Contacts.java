@@ -1,11 +1,14 @@
 package com.example.chatappandroidclient;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +33,16 @@ public class Contacts extends AppCompatActivity implements SelectListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        //make the actionbar prettier
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
+
         contactviewModel = new ContactviewModel(getIntent().getExtras().getString("1"));
 
 

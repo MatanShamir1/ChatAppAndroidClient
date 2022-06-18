@@ -3,6 +3,8 @@ package com.example.chatappandroidclient;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -30,6 +33,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         myApplication = new MyApplication();
+
+        //make the actionbar prettier
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Chat App");
+            actionBar.setIcon(R.drawable.ic_action_name);
+            ColorDrawable cd = new ColorDrawable(Color.parseColor("#606060"));
+            actionBar.setBackgroundDrawable(cd);
+        }
+
         db = Room.databaseBuilder(myApplication.context, ChatAppDB.class, "ChatsDB")
                 .allowMainThreadQueries()
                 .build();
@@ -59,10 +72,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             TextView Username = findViewById(R.id.Username);
             String username = Username.getText().toString();
             TextView Password = findViewById(R.id.Password);
+            TextView Password_conf = findViewById(R.id.Password_conf);
             String password = Password.getText().toString();
+            String password2 = Password_conf.getText().toString();
             ApiContact apiContact = new ApiContact();
             User new_user = new User(username, password, nickName);
-            boolean flag = check_input(username, password, password, nickName);
+            boolean flag = check_input(username, password, password2, nickName);
             if (!flag) {
                 return;
             }
@@ -72,9 +87,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void connection() {
-        TextView text = (TextView) findViewById(R.id.visible);
+        TextView text = (TextView) findViewById(R.id.error_message);
         text.setText("connection lost");
-        text.setVisibility(View.VISIBLE);
     }
 
     public void response() {
@@ -91,26 +105,29 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 + "(?=.*[@#$%^&+=!])"
                 + "(?=\\S+$).{8,20}$";
         String regex2 = "^[0-9\\-]+$";
-        String s;
+        TextView text = (TextView) findViewById(R.id.error_message);
+        //set the text for the next check, if it already has errors from previous checks.
+        text.setText("");
         if (!password.equals(password2)) {
             flag = false;
-            TextView text = (TextView) findViewById(R.id.visible);
-            text.setVisibility(View.VISIBLE);
+            String newText = text.getText().toString() + "* password doesn't match confirm password.\n";
+            text.setText(newText);
         }
         if (!password.matches(regex)){
             flag = false;
-            TextView text = (TextView) findViewById(R.id.visible);
-            text.setVisibility(View.VISIBLE);
+            String newText = text.getText().toString() + "* password must contain at least 1 special letter," +
+                    "(@#$%^&+=!), at least one digit, at least one small letter and at least one capital letter.\n";
+            text.setText(newText);
         }
         if (!userName.matches(regex2)) {
             flag = false;
-            TextView text = (TextView) findViewById(R.id.visible);
-            text.setVisibility(View.VISIBLE);
+            String newText = text.getText().toString() + "* your username must be a phone number. use only digits and '-'.\n";
+            text.setText(newText);
         }
         if (!Nickname.matches("[a-zA-Z]+")) {
             flag = false;
-            TextView text = (TextView) findViewById(R.id.visible);
-            text.setVisibility(View.VISIBLE);
+            String newText = text.getText().toString() + "* your nickname must contain letters only.";
+            text.setText(newText);
         }
         return flag;
     }
